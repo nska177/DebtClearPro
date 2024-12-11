@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic SEO Meta Tags -->
     <meta charset="UTF-8" />
-    <meta name="description" content="A no-data-storage debt-free calculator with multiple debt inputs and flexible strategies." />
-    <meta name="keywords" content="debt-free, calculator, multiple debts, financial freedom, debt repayment" />
+    <meta name="description" content="DebtClearPro: INR-focused debt repayment planner with SIP and detailed monthly breakdown." />
+    <meta name="keywords" content="debt-free, calculator, personal finance, india, INR, debt repayment, sip, snowball, avalanche" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>DebtClearPro: Your Path to Financial Freedom</title>
+    <title>DebtClearPro - Debt & SIP Planner in INR</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto&display=swap" rel="stylesheet">
@@ -19,54 +17,68 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
+        :root {
+            --color-navy: #1E3550;
+            --color-teal: #3E9E8E;
+            --color-light: #F7F7F7;
+            --color-text: #2C2C2C;
+            --color-bg: #EEF1F4;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
-            background: #F5F5F5;
-            color: #212121;
+            background: var(--color-bg);
+            color: var(--color-text);
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
-        header, footer {
-            background: #1976D2; /* Primary Blue */
-            color: #ffffff;
+        header {
+            background: linear-gradient(135deg, var(--color-navy) 0%, #243c5a 100%);
+            color: #FFFFFF;
             text-align: center;
-            padding: 20px;
+            padding: 60px 20px 80px;
         }
 
         header h1 {
             margin: 0;
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
+            font-size: 2.4rem;
         }
 
         header p {
-            margin: 5px 0 0;
+            margin: 20px auto 0;
             font-weight: 600;
+            font-size: 1.1rem;
+            max-width: 600px;
+            line-height: 1.5;
         }
 
         main {
             flex: 1;
-            padding: 20px;
+            padding: 40px 20px;
         }
 
         .card {
             border: none;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
             background: #FFFFFF;
+            margin-bottom: 40px;
+            padding: 30px;
         }
 
         h2, h3 {
             font-family: 'Montserrat', sans-serif;
-            color: #0D47A1;
+            color: var(--color-navy);
+            margin-bottom: 15px;
         }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             margin-bottom: 20px;
         }
 
@@ -74,45 +86,50 @@
             font-size: 1.25rem;
         }
 
-        .input-group label {
-            font-weight: 700;
+        .form-label {
+            font-weight: 600;
             font-family: 'Montserrat', sans-serif;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .add-debt-btn, .remove-debt-btn {
             font-size: 0.9rem;
+        }
+
+        .add-debt-btn {
             margin-top: 10px;
         }
 
-        .methods input {
-            margin-right: 5px;
+        .remove-debt-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
 
         .calculate-button {
             width: 100%;
-            background: #1976D2;
+            background: var(--color-teal);
             color: #FFFFFF;
             padding: 15px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 1rem;
-            font-weight: 700;
             font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-transform: uppercase;
+            transition: background-color 0.3s ease, transform 0.2s ease;
             margin-top: 20px;
         }
 
         .calculate-button:hover {
-            background-color: #0D47A1;
+            background: #338176;
+            transform: translateY(-2px);
         }
 
         .result-box {
             opacity: 0;
             transition: opacity 0.5s ease-in-out;
-            margin-top: 20px;
+            margin-top: 30px;
         }
 
         .result-box.active {
@@ -122,9 +139,40 @@
         .result-summary {
             background: #FFFFFF;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            box-shadow: 0 1px 10px rgba(0,0,0,0.05);
             margin-bottom: 20px;
+        }
+
+        .nav-tabs .nav-link {
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 0;
+            background: none;
+            color: var(--color-navy);
+            transition: color 0.3s ease;
+        }
+
+        .nav-tabs .nav-link:hover {
+            color: var(--color-teal);
+        }
+
+        .nav-tabs .nav-link.active {
+            color: var(--color-teal);
+            position: relative;
+        }
+
+        .nav-tabs .nav-link.active::after {
+            content: "";
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 3px;
+            background: var(--color-teal);
+            border-radius: 2px;
         }
 
         .chart-container {
@@ -133,82 +181,126 @@
             margin-bottom: 20px;
         }
 
-        .nav-tabs .nav-link {
+        .table-responsive {
+            margin-top: 20px;
+        }
+
+        footer {
+            background: var(--color-navy);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        footer a {
+            color: #FFFFFF;
+            text-decoration: underline;
             font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+        #debtsContainer .debt-block {
+            background: #F9F9F9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            position: relative;
+            transition: box-shadow 0.2s ease;
+        }
+
+        #debtsContainer .debt-block:hover {
+            box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+        }
+
+        [data-bs-toggle="tooltip"] {
+            border-bottom: 1px dotted #666;
+            cursor: help;
+        }
+
+        p, li {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        .methods .form-check-label {
             font-size: 0.95rem;
         }
 
-        .tooltip-inner {
-            max-width: 200px;
-            text-align: center;
-            font-size: 0.85rem;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive adjustments */
         @media(max-width: 600px) {
             .methods {
                 flex-direction: column;
                 gap: 10px;
             }
-
-            .methods label {
-                margin-bottom: 10px;
-            }
         }
-
     </style>
 </head>
 <body>
     <header>
-        <h1>DebtFreedomCalc</h1>
-        <p>Your Path to Financial Freedom Starts Here</p>
+        <h1>DebtClearPro</h1>
+        <p>Plan your debt repayments and invest in your SIP simultaneously. Calculations are approximate and done locally—no data leaves your device.</p>
     </header>
 
     <main class="container">
-        <div class="card p-4">
-            <h2>Enter Your Details</h2>
-            <p>All calculations are done locally. No data is saved or sent anywhere.</p>
+        <div class="card">
+            <h2>Your Financial Picture</h2>
+            <p>Enter your income, expenses, SIP amount, and debts. You can skip interest or minimum payments if unknown—they default to 0.</p>
 
+            <h3>Monthly Income & Expenses</h3>
             <div class="mb-3">
                 <label class="form-label" for="monthlyIncome">Monthly Income (₹)</label>
-                <input type="number" class="form-control" id="monthlyIncome" placeholder="e.g. 40000" data-bs-toggle="tooltip" title="Your after-tax monthly income." />
+                <input type="number" class="form-control" id="monthlyIncome" placeholder="e.g. 50000" data-bs-toggle="tooltip" title="Approximate monthly income after taxes." />
             </div>
-
             <div class="mb-3">
                 <label class="form-label" for="monthlyExpenses">Monthly Expenses (₹)</label>
-                <input type="number" class="form-control" id="monthlyExpenses" placeholder="e.g. 20000" data-bs-toggle="tooltip" title="Total monthly essential expenses." />
+                <input type="number" class="form-control" id="monthlyExpenses" placeholder="e.g. 30000" data-bs-toggle="tooltip" title="Total monthly expenses (rent, groceries, etc.)." />
             </div>
 
-            <h3 class="mt-4">Add Your Debts</h3>
-            <p>Use the "Add Debt" button to list each of your debts. Include the principal amount and annual interest rate.</p>
-            <div id="debtsContainer"></div>
-            <button class="btn btn-outline-primary add-debt-btn" id="addDebtBtn">+ Add Debt</button>
+            <h3>Monthly SIP Contribution (Optional)</h3>
+            <div class="mb-3">
+                <label class="form-label" for="monthlySIP">Monthly SIP (₹)</label>
+                <input type="number" class="form-control" id="monthlySIP" placeholder="e.g. 5000" data-bs-toggle="tooltip" title="Amount invested in SIP each month before debts." />
+            </div>
 
-            <h3 class="mt-4">Choose a Repayment Method</h3>
+            <h3>Your Debts</h3>
+            <p>Interest and minimum payment fields are optional. If left blank, they’re treated as 0.</p>
+            <div id="debtsContainer"></div>
+            <button type="button" class="btn btn-outline-primary add-debt-btn" id="addDebtBtn">+ Add Another Debt</button>
+
+            <h3 class="mt-4">Extra Monthly Payment (Optional)</h3>
+            <div class="mb-3">
+                <label class="form-label" for="extraPayment">Extra Monthly Payment (₹)</label>
+                <input type="number" class="form-control" id="extraPayment" placeholder="e.g. 2000" data-bs-toggle="tooltip" title="Additional amount to reduce debts faster." />
+            </div>
+
+            <h3 class="mt-4">Choose a Strategy</h3>
             <div class="methods d-flex align-items-center mb-3">
                 <div class="form-check me-4">
-                    <input class="form-check-input" type="radio" name="repaymentMethod" value="snowball" checked>
+                    <input class="form-check-input" type="radio" name="repaymentMethod" value="snowball" checked title="Snowball Method">
                     <label class="form-check-label">
-                        Snowball Method <span data-bs-toggle="tooltip" title="Pay off smallest debts first for motivation.">?</span>
+                        Snowball Method <span data-bs-toggle="tooltip" title="Clear the smallest balance first for motivational boosts.">?</span>
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="repaymentMethod" value="avalanche">
+                    <input class="form-check-input" type="radio" name="repaymentMethod" value="avalanche" title="Avalanche Method">
                     <label class="form-check-label">
-                        Avalanche Method <span data-bs-toggle="tooltip" title="Pay off highest interest debts first to save on interest.">?</span>
+                        Avalanche Method <span data-bs-toggle="tooltip" title="Target the highest interest debt first to save on interest costs.">?</span>
                     </label>
                 </div>
             </div>
 
-            <button class="calculate-button" id="calculateBtn">Calculate My Plan</button>
+            <button type="button" class="calculate-button" id="calculateBtn">View My Plan</button>
 
             <div class="result-box" id="resultBox">
-                <ul class="nav nav-tabs" id="resultTabs" role="tablist">
+                <ul class="nav nav-tabs border-0" id="resultTabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab" aria-controls="summary" aria-selected="true">Summary</button>
                     </li>
@@ -217,6 +309,9 @@
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="chart-tab" data-bs-toggle="tab" data-bs-target="#chart" type="button" role="tab" aria-controls="chart" aria-selected="false">Chart</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown" type="button" role="tab" aria-controls="breakdown" aria-selected="false">Payment Breakdown</button>
                     </li>
                 </ul>
                 <div class="tab-content p-4" id="resultTabContent">
@@ -231,24 +326,26 @@
                             <canvas id="repaymentChart"></canvas>
                         </div>
                     </div>
+                    <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
+                        <div class="table-responsive" id="paymentBreakdownContainer"></div>
+                    </div>
                 </div>
             </div>
-
         </div>
 
-        <div class="card p-4">
-            <h2>How to Reduce Your Debt Faster</h2>
+        <div class="card">
+            <h2>Progress Over Time</h2>
+            <p>Try different allocations for SIP and extra payments. Check the breakdown to understand how your funds are distributed each month.</p>
             <ul>
-                <li><strong>Cut Expenses:</strong> Identify non-essential spending and redirect those funds to debt repayment.</li>
-                <li><strong>Increase Income:</strong> Consider side gigs or asking for a raise to boost your repayment capacity.</li>
-                <li><strong>Refinance or Negotiate:</strong> Talk to lenders about reducing interest rates or consolidating debt.</li>
-                <li><strong>Stay Motivated:</strong> Track progress monthly and celebrate small wins as you clear each debt.</li>
+                <li><strong>Revisit Often:</strong> Update values as your financial situation changes.</li>
+                <li><strong>Balance Savings & Repayment:</strong> SIP invests for future, while paying down debt frees you sooner.</li>
+                <li><strong>Celebrate Small Wins:</strong> Clearing even one loan is a major step forward.</li>
             </ul>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 DebtFreedomCalc. All rights reserved. This tool is for informational purposes only.</p>
+        <p>All calculations are approximations for planning purposes only. No data is stored or shared.</p>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->
@@ -261,141 +358,174 @@
         const resultBox = document.getElementById('resultBox');
         const resultSummary = document.getElementById('resultSummary');
         const scheduleTableContainer = document.getElementById('scheduleTableContainer');
+        const paymentBreakdownContainer = document.getElementById('paymentBreakdownContainer');
         const repaymentChartEl = document.getElementById('repaymentChart');
         let repaymentChart;
-
         let debtCount = 0;
 
-        // Initialize tooltips
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
 
         function addDebtField() {
             debtCount++;
-            const debtRow = document.createElement('div');
-            debtRow.classList.add('mb-3', 'border', 'p-3', 'rounded', 'bg-light', 'position-relative');
-
-            debtRow.innerHTML = `
-                <div class="row g-3">
+            const debtBlock = document.createElement('div');
+            debtBlock.classList.add('debt-block');
+            debtBlock.innerHTML = `
+                <button class="btn btn-sm btn-danger remove-debt-btn" type="button">Remove</button>
+                <div class="row g-3 align-items-center mt-2">
                     <div class="col-md-6">
-                        <label class="form-label">Debt Amount (₹)</label>
-                        <input type="number" class="form-control debt-amount" placeholder="e.g. 50000" data-bs-toggle="tooltip" title="Principal amount owed."/>
+                        <label class="form-label">Debt Type</label>
+                        <select class="form-select debt-type">
+                            <option value="" selected disabled>Choose a Debt Type</option>
+                            <option value="Car Loan">Car Loan</option>
+                            <option value="Home Loan">Home Loan</option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Student Loan">Student Loan</option>
+                            <option value="Personal Loan">Personal Loan</option>
+                            <option value="Other">Other</option>
+                        </select>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">Annual Interest Rate (%)</label>
-                        <input type="number" step="0.1" class="form-control debt-interest" placeholder="e.g. 12" data-bs-toggle="tooltip" title="Annual interest rate in percentage."/>
+                        <label class="form-label">Account Name (Optional)</label>
+                        <input type="text" class="form-control debt-account" placeholder="e.g. SBI Card, Axis Loan"/>
                     </div>
                 </div>
-                <button class="btn btn-sm btn-danger remove-debt-btn" type="button" style="position:absolute; top:10px; right:10px;">Remove</button>
+                <div class="row g-3 align-items-center mt-1">
+                    <div class="col-md-3">
+                        <label class="form-label">Interest Rate (%)</label>
+                        <input type="number" class="form-control debt-interest" placeholder="e.g. 15"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Balance (₹)</label>
+                        <input type="number" class="form-control debt-balance" placeholder="e.g. 100000"/>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label">Minimum Payment (₹)</label>
+                        <input type="number" class="form-control debt-minimum" placeholder="e.g. 2000"/>
+                    </div>
+                </div>
             `;
+            debtsContainer.appendChild(debtBlock);
 
-            debtsContainer.appendChild(debtRow);
-
-            // Refresh tooltips for new elements
-            const newTooltips = [].slice.call(debtRow.querySelectorAll('[data-bs-toggle="tooltip"]'))
-            newTooltips.forEach(el => {
-                new bootstrap.Tooltip(el);
-            });
-
-            const removeBtn = debtRow.querySelector('.remove-debt-btn');
+            const removeBtn = debtBlock.querySelector('.remove-debt-btn');
             removeBtn.addEventListener('click', () => {
-                debtRow.remove();
+                debtBlock.remove();
             });
         }
 
         addDebtBtn.addEventListener('click', addDebtField);
-
-        // Add one debt field by default
         addDebtField();
 
         function calculatePlan() {
             const monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value) || 0;
             const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
+            const monthlySIP = parseFloat(document.getElementById('monthlySIP').value) || 0;
+            const extraPayment = parseFloat(document.getElementById('extraPayment').value) || 0;
+            const method = document.querySelector('input[name="repaymentMethod"]:checked').value;
 
-            if (monthlyIncome <= 0 || monthlyExpenses < 0) {
-                alert("Please enter valid monthly income and expense values.");
+            const monthlyAvailable = monthlyIncome - monthlyExpenses;
+            if (monthlyAvailable < 0) {
+                alert("Your expenses exceed your income, leaving no funds for debt or SIP. Adjust values.");
                 return;
             }
 
-            const method = document.querySelector('input[name="repaymentMethod"]:checked').value;
+            const monthlyAvailableAfterSIP = monthlyAvailable - monthlySIP;
+            if (monthlyAvailableAfterSIP < 0) {
+                alert("Your SIP exceeds your available funds after expenses. No funds left for debts. Adjust values.");
+                return;
+            }
 
-            // Gather debts
-            const debtRows = debtsContainer.querySelectorAll('.mb-3');
+            const debtBlocks = debtsContainer.querySelectorAll('.debt-block');
             let debts = [];
-            debtRows.forEach(row => {
-                const amount = parseFloat(row.querySelector('.debt-amount').value) || 0;
-                const interest = parseFloat(row.querySelector('.debt-interest').value) || 0;
-                if (amount > 0 && interest >= 0) {
-                    debts.push({ amount, interest });
+            debtBlocks.forEach(block => {
+                const type = block.querySelector('.debt-type').value;
+                const balance = parseFloat(block.querySelector('.debt-balance').value) || 0;
+                const interest = parseFloat(block.querySelector('.debt-interest').value) || 0;
+                const minimum = parseFloat(block.querySelector('.debt-minimum').value) || 0;
+                if (type && balance > 0) {
+                    // If interest or minimum not provided, it's considered 0 by default already.
+                    debts.push({ type, balance, interest, minimum });
                 }
             });
 
             if (debts.length === 0) {
-                alert("Please add at least one debt with valid values.");
-                return;
-            }
-
-            const monthlyAvailable = monthlyIncome - monthlyExpenses;
-            if (monthlyAvailable <= 0) {
-                alert("Your expenses are too high relative to your income. No funds left for debt repayment.");
+                alert("Please add at least one valid debt with a positive balance.");
                 return;
             }
 
             // Sort debts according to chosen method
             if (method === 'snowball') {
-                // Smallest debt first
-                debts.sort((a, b) => a.amount - b.amount);
+                debts.sort((a, b) => a.balance - b.balance);
             } else {
-                // Highest interest first (avalanche)
                 debts.sort((a, b) => b.interest - a.interest);
             }
 
-            // Simulation of monthly payments
             let schedule = [];
             let totalInterestPaid = 0;
             let month = 0;
             let allDebtsPaid = false;
             let dataPoints = [];
 
-            // Flatten all debts into one schedule (We can simulate by paying towards the first debt in the sorted order, 
-            // once it's cleared, move to the next.)
+            // For payment breakdown
+            let paymentBreakdown = []; // Array of {month, payments: [amtForDebt1, amtForDebt2, ...]}
+            const numberOfDebts = debts.length;
 
             while (!allDebtsPaid && month < 600) {
                 month++;
-                let monthlyPaymentLeft = monthlyAvailable;
+                let monthlyPaymentLeft = monthlyAvailableAfterSIP;
 
-                // Apply interest and attempt to pay down each debt in order
-                for (let d of debts) {
-                    if (d.amount > 0) {
-                        // Interest this month
-                        const monthlyInterestRate = (d.interest / 100) / 12;
-                        const interestThisMonth = d.amount * monthlyInterestRate;
-                        d.amount += interestThisMonth;
+                // Track monthly payment per debt this month
+                let monthlyDebtPayments = new Array(numberOfDebts).fill(0);
+
+                // Add interest
+                debts.forEach((d, i) => {
+                    if (d.balance > 0) {
+                        const monthlyInterestRate = (d.interest / 100) / 12 || 0;
+                        const interestThisMonth = d.balance * monthlyInterestRate;
+                        d.balance += interestThisMonth;
                         totalInterestPaid += interestThisMonth;
+                    }
+                });
 
-                        // Pay as much as possible towards this debt
-                        const payment = Math.min(monthlyPaymentLeft, d.amount);
-                        d.amount -= payment;
-                        monthlyPaymentLeft -= payment;
+                // Pay minimums
+                for (let i = 0; i < debts.length; i++) {
+                    let d = debts[i];
+                    if (d.balance > 0 && monthlyPaymentLeft > 0) {
+                        const pay = Math.min(d.minimum, d.balance, monthlyPaymentLeft);
+                        d.balance -= pay;
+                        monthlyPaymentLeft -= pay;
+                        monthlyDebtPayments[i] += pay;
                     }
                 }
 
-                // Record schedule snapshot
-                let totalRemaining = debts.reduce((sum, d) => sum + d.amount, 0);
+                // Apply extra payment to first eligible debt
+                if (extraPayment > 0) {
+                    for (let i = 0; i < debts.length; i++) {
+                        let d = debts[i];
+                        if (d.balance > 0 && monthlyPaymentLeft > 0) {
+                            const payExtra = Math.min(extraPayment, d.balance, monthlyPaymentLeft);
+                            d.balance -= payExtra;
+                            monthlyPaymentLeft -= payExtra;
+                            monthlyDebtPayments[i] += payExtra;
+                            break;
+                        }
+                    }
+                }
+
+                let totalRemaining = debts.reduce((sum, d) => sum + d.balance, 0);
                 schedule.push({ month, totalRemaining: Math.max(totalRemaining, 0) });
                 dataPoints.push(Math.max(totalRemaining, 0));
 
-                // Check if all paid
+                paymentBreakdown.push({ month, payments: monthlyDebtPayments.slice() });
+
                 if (totalRemaining <= 0.01) {
-                    // Round off
                     allDebtsPaid = true;
-                    debts.forEach(d => d.amount = 0);
+                    debts.forEach(d => d.balance = 0);
                 }
             }
 
-            // Generate summary
             let monthsTaken = schedule.length;
             let years = Math.floor(monthsTaken / 12);
             let remainderMonths = monthsTaken % 12;
@@ -403,20 +533,19 @@
                 ? `${years} year(s) and ${remainderMonths} month(s)`
                 : `${monthsTaken} month(s)`;
 
-            // Build summary HTML
             resultSummary.innerHTML = `
-                <h3>Summary</h3>
-                <p><strong>Method Used:</strong> ${method.charAt(0).toUpperCase() + method.slice(1)}</p>
-                <p><strong>Total Debts:</strong> ${debts.length}</p>
-                <p><strong>Monthly Income:</strong> ₹${monthlyIncome.toFixed(2)}</p>
-                <p><strong>Monthly Expenses:</strong> ₹${monthlyExpenses.toFixed(2)}</p>
+                <h3>Your Personalized Plan</h3>
+                <p><strong>Monthly Income:</strong> ₹${monthlyIncome.toFixed(2)} | <strong>Monthly Expenses:</strong> ₹${monthlyExpenses.toFixed(2)}</p>
+                <p><strong>Monthly SIP:</strong> ₹${monthlySIP.toFixed(2)} | <strong>Extra Payment:</strong> ₹${extraPayment.toFixed(2)}</p>
+                <p><strong>Method:</strong> ${method.charAt(0).toUpperCase() + method.slice(1)}</p>
                 <hr>
-                <p><strong>Estimated Time to Debt-Free:</strong> ${debtFreeTime}</p>
-                <p><strong>Total Interest Paid (approx):</strong> ₹${totalInterestPaid.toFixed(2)}</p>
-                <p><strong>Tip:</strong> Consider increasing your monthly payment by finding savings in your budget or looking for ways to increase income. This can shorten your payoff time significantly.</p>
+                <p><strong>Estimated Time to Clear Debts:</strong> ${debtFreeTime}</p>
+                <p><strong>Total Interest Paid (Approx):</strong> ₹${totalInterestPaid.toFixed(2)}</p>
+                <hr>
+                <p>This simulation shows how allocating funds to SIP and extra payments affects your debt-free timeline. Experiment with different values to find a balance that works for you.</p>
             `;
 
-            // Build schedule table
+            // Schedule Table
             let tableHTML = `<table class="table table-striped table-sm">
                                 <thead>
                                     <tr>
@@ -434,10 +563,32 @@
             tableHTML += `</tbody></table>`;
             scheduleTableContainer.innerHTML = tableHTML;
 
-            // Show result box
+            // Payment Breakdown Table
+            // Create header row: Month + one column per debt
+            let breakdownHTML = `<table class="table table-striped table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Month</th>`;
+            debts.forEach((d, i) => {
+                // Show debt type and maybe account name
+                breakdownHTML += `<th>${d.type}${d.accountName ? ` (${d.accountName})` : ''}</th>`;
+            });
+            breakdownHTML += `</tr></thead><tbody>`;
+
+            paymentBreakdown.forEach(row => {
+                breakdownHTML += `<tr><td>${row.month}</td>`;
+                row.payments.forEach((amt, i) => {
+                    breakdownHTML += `<td>₹${amt.toFixed(2)}</td>`;
+                });
+                breakdownHTML += `</tr>`;
+            });
+
+            breakdownHTML += `</tbody></table>`;
+            paymentBreakdownContainer.innerHTML = breakdownHTML;
+
+
             resultBox.classList.add('active');
 
-            // Render chart
             if (repaymentChart) {
                 repaymentChart.destroy();
             }
@@ -448,7 +599,7 @@
                     datasets: [{
                         label: 'Debt Over Time (₹)',
                         data: dataPoints,
-                        borderColor: '#1976D2',
+                        borderColor: '#3E9E8E',
                         fill: false,
                         tension: 0.1
                     }]
@@ -469,13 +620,17 @@
                             },
                             beginAtZero: true
                         }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
                     }
                 }
             });
         }
 
         calculateBtn.addEventListener('click', calculatePlan);
-
     </script>
 </body>
 </html>
