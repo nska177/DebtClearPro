@@ -273,7 +273,7 @@
             <h3>Your Debts</h3>
             <p>Interest and minimum payment fields are optional. If left blank, they’re treated as 0.</p>
             <div id="debtsContainer"></div>
-            <button type="button" class="btn btn-outline-primary add-debt-btn" id="addDebtBtn">+ Add Another Debt</button>
+            <button class="btn btn-outline-primary add-debt-btn" id="addDebtBtn">+ Add Another Debt</button>
 
             <h3 class="mt-4">Extra Monthly Payment (Optional)</h3>
             <div class="mb-3">
@@ -284,20 +284,20 @@
             <h3 class="mt-4">Choose a Strategy</h3>
             <div class="methods d-flex align-items-center mb-3">
                 <div class="form-check me-4">
-                    <input class="form-check-input" type="radio" name="repaymentMethod" value="snowball" checked title="Snowball Method">
+                    <input class="form-check-input" type="radio" name="repaymentMethod" value="snowball" checked>
                     <label class="form-check-label">
                         Snowball Method <span data-bs-toggle="tooltip" title="Clear the smallest balance first for motivational boosts.">?</span>
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="repaymentMethod" value="avalanche" title="Avalanche Method">
+                    <input class="form-check-input" type="radio" name="repaymentMethod" value="avalanche">
                     <label class="form-check-label">
                         Avalanche Method <span data-bs-toggle="tooltip" title="Target the highest interest debt first to save on interest costs.">?</span>
                     </label>
                 </div>
             </div>
 
-            <button type="button" class="calculate-button" id="calculateBtn">View My Plan</button>
+            <button class="calculate-button" id="calculateBtn">View My Plan</button>
 
             <div class="result-box" id="resultBox">
                 <ul class="nav nav-tabs border-0" id="resultTabs" role="tablist">
