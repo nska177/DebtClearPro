@@ -1,0 +1,172 @@
+:root {
+    --color-navy: #2A3B4C;
+    --color-green: #93c9a3;
+    --color-blue: #b2d8d8;
+    --color-bg: #eef3f5;
+    --color-text: #2c2c2c;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--color-bg);
+    color: var(--color-text);
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header, .header-section {
+    background: linear-gradient(135deg, var(--color-blue) 0%, var(--color-green) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 60px 20px 80px;
+}
+
+header h1, .header-section h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 2.2rem;
+    margin: 0;
+}
+
+header p, .header-section p {
+    font-weight: 500;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 20px auto 0;
+    line-height: 1.5;
+}
+
+main {
+    flex: 1;
+    padding: 40px 20px;
+}
+
+.card {
+    background: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    padding: 30px;
+    margin-bottom: 40px;
+}
+
+h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--color-navy);
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.2rem;
+}
+
+.form-label {
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+}
+
+button, input, select {
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+button:focus, input:focus, select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(147,201,163,0.5);
+}
+
+.add-debt-btn, .calculate-button {
+    background: var(--color-green);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 10px;
+    display: inline-block;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-debt-btn:hover, .calculate-button:hover {
+    background: #78b589;
+    transform: translateY(-2px);
+}
+
+.remove-debt-btn {
+    background: transparent;
+    border: none;
+    color: #555;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.remove-debt-btn:hover {
+    color: #333;
+}
+
+.result-box {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    margin-top: 30px;
+}
+
+.result-box.active {
+    opacity: 1;
+}
+
+.table-hover tbody tr:hover {
+    background: #f1f1f1;
+}
+
+footer {
+    background: var(--color-blue);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+}
+
+footer p {
+    margin: 0;
+}
+
+#debtsContainer .debt-block {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+}
+
+.navbar-nav .nav-link {
+    color: #333;
+    font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-green);
+}
+
+@media(max-width: 600px) {
+    .calculate-button, .add-debt-btn {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}
