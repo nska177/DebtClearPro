@@ -500,6 +500,20 @@
                     }
                 }
 
+                // After interest and minimum/extra payments:
+                if (monthlyPaymentLeft > 0) {
+                 for (let i = 0; i < debts.length; i++) {
+                     let d = debts[i];
+                if (d.balance > 0 && monthlyPaymentLeft > 0) {
+                      const payRemaining = Math.min(d.balance, monthlyPaymentLeft);
+                 d.balance -= payRemaining;
+                 monthlyPaymentLeft -= payRemaining;
+                 console.log(`Applied remaining funds: ₹${payRemaining.toFixed(2)} to Debt ${i}, new balance: ₹${d.balance.toFixed(2)}`);
+                 if (monthlyPaymentLeft <= 0) break;
+             }
+            }
+}           
+
                 // Apply extra payment to first eligible debt
                 if (extraPayment > 0) {
                     for (let i = 0; i < debts.length; i++) {
