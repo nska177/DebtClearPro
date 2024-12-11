@@ -149,24 +149,39 @@ footer p {
     position: relative;
 }
 
-.navbar-brand {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1.3rem;
-}
-
-.navbar-nav .nav-link {
-    color: #333;
-    font-weight: 500;
-}
-
-.navbar-nav .nav-link:hover {
-    color: var(--color-green);
-}
-
+#navbar {
+    background-color: #fff; /* white */
+    padding: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999; /* ensure it's on top of other elements */
+  }
+  
+  #navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  #navbar li {
+    display: inline-block;
+  }
+  
+  #navbar a {
+    color: #333; /* dark gray */
+    text-decoration: none;
+  }
 @media(max-width: 600px) {
     .calculate-button, .add-debt-btn {
         width: 100%;
         margin-bottom: 15px;
     }
 }
+
+.cloudy {
+    background-color: rgba(255, 255, 255, 0.5); /* semi-transparent white */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* soft gray shadow */
+    transition: all 0.3s ease-in-out; /* smooth transition */
+  }

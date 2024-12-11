@@ -9,7 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const repaymentChartEl = document.getElementById('repaymentChart');
     let repaymentChart;
     let debtCount = 0;
-
+    
+    window.addEventListener("scroll", function() {
+        const navbar = document.getElementById("navbar");
+        const scrollTop = window.scrollY;
+        const threshold = 100; /* adjust this value to change the trigger point */
+      
+        if (scrollTop > threshold) {
+          navbar.classList.add("cloudy");
+        } else {
+          navbar.classList.remove("cloudy");
+        }
+      });
     function addDebtField() {
         debtCount++;
         const debtBlock = document.createElement('div');
