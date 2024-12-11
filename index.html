@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="DebtClearPro: INR-focused debt repayment planner with SIP and detailed monthly breakdown." />
-    <meta name="keywords" content="debt-free, calculator, personal finance, india, INR, debt repayment, sip, snowball, avalanche" />
+    <meta name="description" content="DebtClearPro: A calm, INR-focused debt and SIP planner with multiple repayment methods and detailed breakdowns. Achieve financial freedom step-by-step." />
+    <meta name="keywords" content="debt-free, calculator, personal finance, india, INR, debt repayment, sip, snowball, avalanche, pro-rata, equal distribution" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DebtClearPro - Debt & SIP Planner in INR</title>
+    <title>DebtClearPro - Your Calm Path to Debt Freedom</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto&display=swap" rel="stylesheet">
@@ -23,11 +23,13 @@
             --color-light: #F7F7F7;
             --color-text: #2C2C2C;
             --color-bg: #EEF1F4;
+            --color-accent: #8EB5BA;
         }
 
         body {
             font-family: 'Roboto', sans-serif;
-            background: var(--color-bg);
+            background: var(--color-bg) url('data:image/svg+xml,%3Csvg width%3D"600" height%3D"600" viewBox%3D"0 0 600 600" xmlns%3D"http://www.w3.org/2000/svg"%3E%3Cg fill%3D"%238eb5ba" fill-opacity%3D"0.1"%3E%3Ccircle r%3D"60" cx%3D"100" cy%3D"100"%3E%3C/circle%3E%3Ccircle r%3D"50" cx%3D"500" cy%3D"300"%3E%3C/circle%3E%3Ccircle r%3D"80" cx%3D"200" cy%3D"400"%3E%3C/circle%3E%3C/g%3E%3C/svg%3E') no-repeat center center fixed;
+            background-size: cover;
             color: var(--color-text);
             margin: 0;
             display: flex;
@@ -185,6 +187,10 @@
             margin-top: 20px;
         }
 
+        .table-hover tbody tr:hover {
+            background: #f1f1f1;
+        }
+
         footer {
             background: var(--color-navy);
             color: #FFFFFF;
@@ -235,64 +241,76 @@
             font-size: 0.95rem;
         }
 
-        @media(max-width: 600px) {
-            .methods {
-                flex-direction: column;
-                gap: 10px;
-            }
+        .explanation {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>DebtClearPro</h1>
-        <p>Plan your debt repayments and invest in your SIP simultaneously. Calculations are approximate and done locally—no data leaves your device.</p>
+        <p>Stay calm, stay focused. Combine strategic debt repayment with SIP contributions to move closer to financial freedom. All calculations local—no data leaves your device.</p>
     </header>
 
     <main class="container">
         <div class="card">
             <h2>Your Financial Picture</h2>
-            <p>Enter your income, expenses, SIP amount, and debts. You can skip interest or minimum payments if unknown—they default to 0.</p>
+            <p>Enter your financial details. Leave interest or minimum blank if unknown—they default to zero. Any leftover funds will automatically pay down principal, ensuring steady progress.</p>
+            <p>Try Snowball, Avalanche, Pro-Rata, or Equal Distribution methods. Month 0 shows your starting point before any payments.</p>
 
             <h3>Monthly Income & Expenses</h3>
             <div class="mb-3">
                 <label class="form-label" for="monthlyIncome">Monthly Income (₹)</label>
-                <input type="number" class="form-control" id="monthlyIncome" placeholder="e.g. 50000" data-bs-toggle="tooltip" title="Approximate monthly income after taxes." />
+                <input type="number" class="form-control" id="monthlyIncome" placeholder="e.g. 50000" />
             </div>
             <div class="mb-3">
                 <label class="form-label" for="monthlyExpenses">Monthly Expenses (₹)</label>
-                <input type="number" class="form-control" id="monthlyExpenses" placeholder="e.g. 30000" data-bs-toggle="tooltip" title="Total monthly expenses (rent, groceries, etc.)." />
+                <input type="number" class="form-control" id="monthlyExpenses" placeholder="e.g. 30000" />
             </div>
 
             <h3>Monthly SIP Contribution (Optional)</h3>
             <div class="mb-3">
                 <label class="form-label" for="monthlySIP">Monthly SIP (₹)</label>
-                <input type="number" class="form-control" id="monthlySIP" placeholder="e.g. 5000" data-bs-toggle="tooltip" title="Amount invested in SIP each month before debts." />
+                <input type="number" class="form-control" id="monthlySIP" placeholder="e.g. 5000" />
             </div>
 
             <h3>Your Debts</h3>
-            <p>Interest and minimum payment fields are optional. If left blank, they’re treated as 0.</p>
+            <p>Omit interest or minimum if unknown. The tool still pays down whatever it can.</p>
             <div id="debtsContainer"></div>
             <button class="btn btn-outline-primary add-debt-btn" id="addDebtBtn">+ Add Another Debt</button>
 
             <h3 class="mt-4">Extra Monthly Payment (Optional)</h3>
             <div class="mb-3">
                 <label class="form-label" for="extraPayment">Extra Monthly Payment (₹)</label>
-                <input type="number" class="form-control" id="extraPayment" placeholder="e.g. 2000" data-bs-toggle="tooltip" title="Additional amount to reduce debts faster." />
+                <input type="number" class="form-control" id="extraPayment" placeholder="e.g. 2000" />
             </div>
 
             <h3 class="mt-4">Choose a Strategy</h3>
-            <div class="methods d-flex align-items-center mb-3">
-                <div class="form-check me-4">
+            <div class="methods d-flex flex-wrap align-items-center mb-3" style="gap:20px;">
+                <div class="form-check">
                     <input class="form-check-input" type="radio" name="repaymentMethod" value="snowball" checked>
                     <label class="form-check-label">
-                        Snowball Method <span data-bs-toggle="tooltip" title="Clear the smallest balance first for motivational boosts.">?</span>
+                        Snowball <span title="Clear the smallest balance first for quick motivational wins.">?</span>
                     </label>
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="repaymentMethod" value="avalanche">
                     <label class="form-check-label">
-                        Avalanche Method <span data-bs-toggle="tooltip" title="Target the highest interest debt first to save on interest costs.">?</span>
+                        Avalanche <span title="Target highest interest first to save on interest.">?</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="repaymentMethod" value="prorata">
+                    <label class="form-check-label">
+                        Pro-Rata <span title="Distribute funds proportionally to each debt’s outstanding balance.">?</span>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="repaymentMethod" value="equal">
+                    <label class="form-check-label">
+                        Equal Distribution <span title="Distribute funds equally among all debts.">?</span>
                     </label>
                 </div>
             </div>
@@ -327,6 +345,16 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
+                        <div class="explanation">
+                            <p><strong>Interpreting the Payment Breakdown:</strong></p>
+                            <ul>
+                                <li><strong>Month 0</strong>: Your starting point, no payments made yet.</li>
+                                <li>Each subsequent month shows how much was actually paid to each debt.</li>
+                                <li>If a debt shows ₹0.00 for a month, it means no funds were allocated to it that month.</li>
+                                <li>This table helps you see exactly where your money goes each month.</li>
+                            </ul>
+                            <p>Use this breakdown to understand your repayment pattern, confirm that leftover funds and extra payments are applied correctly, and gain transparency in your journey.</p>
+                        </div>
                         <div class="table-responsive" id="paymentBreakdownContainer"></div>
                     </div>
                 </div>
@@ -335,17 +363,13 @@
 
         <div class="card">
             <h2>Progress Over Time</h2>
-            <p>Try different allocations for SIP and extra payments. Check the breakdown to understand how your funds are distributed each month.</p>
-            <ul>
-                <li><strong>Revisit Often:</strong> Update values as your financial situation changes.</li>
-                <li><strong>Balance Savings & Repayment:</strong> SIP invests for future, while paying down debt frees you sooner.</li>
-                <li><strong>Celebrate Small Wins:</strong> Clearing even one loan is a major step forward.</li>
-            </ul>
+            <p>Remember, every month you persist, you reduce your burden. Keep going, tweak your strategy, and watch those balances drop. Small steps build into big victories.</p>
+            <p>This is your calm, private space to plan and reflect. Stay consistent, and let these numbers guide you toward a debt-free future.</p>
         </div>
     </main>
 
     <footer>
-        <p>All calculations are approximations for planning purposes only. No data is stored or shared.</p>
+        <p>All calculations are approximate. No data is stored or shared. Protect your privacy and consider professional advice if needed. Stay calm, confident, and committed.</p>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->
@@ -362,11 +386,6 @@
         const repaymentChartEl = document.getElementById('repaymentChart');
         let repaymentChart;
         let debtCount = 0;
-
-        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        });
 
         function addDebtField() {
             debtCount++;
@@ -427,13 +446,13 @@
 
             const monthlyAvailable = monthlyIncome - monthlyExpenses;
             if (monthlyAvailable < 0) {
-                alert("Your expenses exceed your income, leaving no funds for debt or SIP. Adjust values.");
+                alert("Your expenses exceed your income. Adjust values.");
                 return;
             }
 
             const monthlyAvailableAfterSIP = monthlyAvailable - monthlySIP;
             if (monthlyAvailableAfterSIP < 0) {
-                alert("Your SIP exceeds your available funds after expenses. No funds left for debts. Adjust values.");
+                alert("Your SIP exceeds available funds. Adjust values.");
                 return;
             }
 
@@ -444,9 +463,9 @@
                 const balance = parseFloat(block.querySelector('.debt-balance').value) || 0;
                 const interest = parseFloat(block.querySelector('.debt-interest').value) || 0;
                 const minimum = parseFloat(block.querySelector('.debt-minimum').value) || 0;
+                const accountName = block.querySelector('.debt-account').value || "";
                 if (type && balance > 0) {
-                    // If interest or minimum not provided, it's considered 0 by default already.
-                    debts.push({ type, balance, interest, minimum });
+                    debts.push({ type, balance, interest, minimum, accountName });
                 }
             });
 
@@ -455,31 +474,36 @@
                 return;
             }
 
-            // Sort debts according to chosen method
+            // Sort debts for Snowball/Avalanche (Pro-Rata/Equal: no reorder)
             if (method === 'snowball') {
                 debts.sort((a, b) => a.balance - b.balance);
-            } else {
+            } else if (method === 'avalanche') {
                 debts.sort((a, b) => b.interest - a.interest);
             }
 
             let schedule = [];
             let totalInterestPaid = 0;
-            let month = 0;
+            let month = -1;
             let allDebtsPaid = false;
             let dataPoints = [];
 
-            // For payment breakdown
-            let paymentBreakdown = []; // Array of {month, payments: [amtForDebt1, amtForDebt2, ...]}
+            let paymentBreakdown = [];
             const numberOfDebts = debts.length;
 
-            while (!allDebtsPaid && month < 600) {
-                month++;
-                let monthlyPaymentLeft = monthlyAvailableAfterSIP;
+            // Month 0 initial state
+            let initialTotal = debts.reduce((sum, d) => sum + d.balance, 0);
+            schedule.push({ month: 0, totalRemaining: initialTotal });
+            dataPoints.push(initialTotal);
+            paymentBreakdown.push({ month: 0, payments: new Array(numberOfDebts).fill(0) });
 
-                // Track monthly payment per debt this month
+            while (!allDebtsPaid && month < 599) {
+                month++;
+                if (month === 0) continue; // Month 0 is initial only
+
+                let monthlyPaymentLeft = monthlyAvailableAfterSIP;
                 let monthlyDebtPayments = new Array(numberOfDebts).fill(0);
 
-                // Add interest
+                // 1. Add interest
                 debts.forEach((d, i) => {
                     if (d.balance > 0) {
                         const monthlyInterestRate = (d.interest / 100) / 12 || 0;
@@ -489,33 +513,64 @@
                     }
                 });
 
-                // Pay minimums
+                // 2. Pay minimums (if any)
                 for (let i = 0; i < debts.length; i++) {
                     let d = debts[i];
-                    if (d.balance > 0 && monthlyPaymentLeft > 0) {
-                        const pay = Math.min(d.minimum, d.balance, monthlyPaymentLeft);
-                        d.balance -= pay;
-                        monthlyPaymentLeft -= pay;
-                        monthlyDebtPayments[i] += pay;
+                    if (d.balance > 0 && d.minimum > 0 && monthlyPaymentLeft > 0) {
+                        const payMin = Math.min(d.minimum, d.balance, monthlyPaymentLeft);
+                        d.balance -= payMin;
+                        monthlyPaymentLeft -= payMin;
+                        monthlyDebtPayments[i] += payMin;
                     }
                 }
 
-                // After interest and minimum/extra payments:
+                // 3. Distribute leftover (no extra yet)
                 if (monthlyPaymentLeft > 0) {
-                 for (let i = 0; i < debts.length; i++) {
-                     let d = debts[i];
-                if (d.balance > 0 && monthlyPaymentLeft > 0) {
-                      const payRemaining = Math.min(d.balance, monthlyPaymentLeft);
-                 d.balance -= payRemaining;
-                 monthlyPaymentLeft -= payRemaining;
-                 console.log(`Applied remaining funds: ₹${payRemaining.toFixed(2)} to Debt ${i}, new balance: ₹${d.balance.toFixed(2)}`);
-                 if (monthlyPaymentLeft <= 0) break;
-             }
-            }
-}           
+                    if (method === 'prorata') {
+                        let totalBalance = debts.reduce((sum, d) => sum + (d.balance > 0 ? d.balance : 0), 0);
+                        if (totalBalance > 0) {
+                            for (let i = 0; i < debts.length; i++) {
+                                let d = debts[i];
+                                if (d.balance > 0) {
+                                    let share = (d.balance / totalBalance) * monthlyPaymentLeft;
+                                    let payProrata = Math.min(share, d.balance);
+                                    d.balance -= payProrata;
+                                    monthlyDebtPayments[i] += payProrata;
+                                }
+                            }
+                            monthlyPaymentLeft = 0;
+                        }
+                    } else if (method === 'equal') {
+                        let activeDebts = debts.filter(d => d.balance > 0).length;
+                        if (activeDebts > 0) {
+                            let equalShare = monthlyPaymentLeft / activeDebts;
+                            for (let i = 0; i < debts.length; i++) {
+                                let d = debts[i];
+                                if (d.balance > 0 && monthlyPaymentLeft > 0) {
+                                    let payEq = Math.min(d.balance, equalShare);
+                                    d.balance -= payEq;
+                                    monthlyDebtPayments[i] += payEq;
+                                }
+                            }
+                            monthlyPaymentLeft = 0;
+                        }
+                    } else {
+                        // Snowball/Avalanche leftover
+                        for (let i = 0; i < debts.length; i++) {
+                            let d = debts[i];
+                            if (d.balance > 0 && monthlyPaymentLeft > 0) {
+                                const payRemaining = Math.min(d.balance, monthlyPaymentLeft);
+                                d.balance -= payRemaining;
+                                monthlyPaymentLeft -= payRemaining;
+                                monthlyDebtPayments[i] += payRemaining;
+                                if (monthlyPaymentLeft <= 0) break;
+                            }
+                        }
+                    }
+                }
 
-                // Apply extra payment to first eligible debt
-                if (extraPayment > 0) {
+                // 4. Apply extra payment (Snowball/Avalanche only)
+                if ((method === 'snowball' || method === 'avalanche') && extraPayment > 0 && monthlyPaymentLeft > 0) {
                     for (let i = 0; i < debts.length; i++) {
                         let d = debts[i];
                         if (d.balance > 0 && monthlyPaymentLeft > 0) {
@@ -529,10 +584,10 @@
                 }
 
                 let totalRemaining = debts.reduce((sum, d) => sum + d.balance, 0);
-                schedule.push({ month, totalRemaining: Math.max(totalRemaining, 0) });
+                schedule.push({ month: month, totalRemaining: Math.max(totalRemaining, 0) });
                 dataPoints.push(Math.max(totalRemaining, 0));
 
-                paymentBreakdown.push({ month, payments: monthlyDebtPayments.slice() });
+                paymentBreakdown.push({ month: month, payments: monthlyDebtPayments.slice() });
 
                 if (totalRemaining <= 0.01) {
                     allDebtsPaid = true;
@@ -540,7 +595,7 @@
                 }
             }
 
-            let monthsTaken = schedule.length;
+            let monthsTaken = schedule.length - 1; // month 0 is initial
             let years = Math.floor(monthsTaken / 12);
             let remainderMonths = monthsTaken % 12;
             let debtFreeTime = years > 0 
@@ -556,11 +611,11 @@
                 <p><strong>Estimated Time to Clear Debts:</strong> ${debtFreeTime}</p>
                 <p><strong>Total Interest Paid (Approx):</strong> ₹${totalInterestPaid.toFixed(2)}</p>
                 <hr>
-                <p>This simulation shows how allocating funds to SIP and extra payments affects your debt-free timeline. Experiment with different values to find a balance that works for you.</p>
+                <p>Keep going and stay consistent. Adjust values as needed, try different methods, and watch your debt shrink. You’re on your way!</p>
             `;
 
-            // Schedule Table
-            let tableHTML = `<table class="table table-striped table-sm">
+            // Schedule Table (Month 0 included)
+            let tableHTML = `<table class="table table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                         <th>Month</th>
@@ -578,13 +633,11 @@
             scheduleTableContainer.innerHTML = tableHTML;
 
             // Payment Breakdown Table
-            // Create header row: Month + one column per debt
-            let breakdownHTML = `<table class="table table-striped table-sm">
+            let breakdownHTML = `<table class="table table-striped table-hover table-sm">
                                     <thead>
                                         <tr>
                                             <th>Month</th>`;
             debts.forEach((d, i) => {
-                // Show debt type and maybe account name
                 breakdownHTML += `<th>${d.type}${d.accountName ? ` (${d.accountName})` : ''}</th>`;
             });
             breakdownHTML += `</tr></thead><tbody>`;
@@ -600,7 +653,6 @@
             breakdownHTML += `</tbody></table>`;
             paymentBreakdownContainer.innerHTML = breakdownHTML;
 
-
             resultBox.classList.add('active');
 
             if (repaymentChart) {
@@ -609,7 +661,7 @@
             repaymentChart = new Chart(repaymentChartEl, {
                 type: 'line',
                 data: {
-                    labels: dataPoints.map((_, i) => i + 1),
+                    labels: dataPoints.map((_, i) => i),
                     datasets: [{
                         label: 'Debt Over Time (₹)',
                         data: dataPoints,
