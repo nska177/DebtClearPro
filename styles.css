@@ -8,6 +8,9 @@
     --color-text: #2c2c2c;
     --color-secondary: #6c757d;
     --transition-speed: 0.3s;
+    --vibrant-red: #e63946;
+    --vibrant-orange: #f77f00;
+    --vibrant-yellow: #fcbf49;
 }
 
 body {
@@ -50,6 +53,7 @@ main {
     padding: 40px 20px;
 }
 
+/* **Card Styles** */
 .card {
     background: #fff;
     border: none;
@@ -65,7 +69,7 @@ main {
     box-shadow: 0 8px 30px rgba(0,0,0,0.1);
 }
 
-h2, h3 {
+h2, h3, h4 {
     font-family: 'Montserrat', sans-serif;
     color: var(--color-navy);
     margin-bottom: 15px;
@@ -76,7 +80,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-h3 {
+h3, h4 {
     font-size: 1.3rem;
 }
 
@@ -133,6 +137,7 @@ button, input, select {
     color: #333;
 }
 
+/* **Result Box Styles** */
 .result-box {
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
@@ -160,7 +165,7 @@ footer p {
     margin: 0;
 }
 
-/* Debts Container */
+/* **Debts Container Styles** */
 #debtsContainer .debt-block {
     background: #f9f9f9;
     padding: 20px;
@@ -175,7 +180,7 @@ footer p {
     background: #f1f1f1;
 }
 
-/* Navbar Enhancements */
+/* **Navbar Enhancements** */
 .navbar {
     transition: padding var(--transition-speed) ease, background var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
 }
@@ -192,7 +197,7 @@ footer p {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* Progress Bar */
+/* **Progress Bar Styles** */
 .progress {
     background-color: rgba(255, 255, 255, 0.3);
     border-radius: 12px;
@@ -224,7 +229,7 @@ footer p {
     pointer-events: none;
 }
 
-/* Achievements Section */
+/* **Achievements Section Styles** */
 .achievements-section {
     background: #fff;
     border-radius: 12px;
@@ -265,20 +270,31 @@ footer p {
     color: var(--color-secondary);
 }
 
-/* Tooltips */
-.tooltip-inner {
-    background-color: var(--color-accent);
+/* **Tips and Motivation Section Styles** */
+#tipsContainer .tip-card {
+    background: var(--color-light-green);
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: transform var(--transition-speed) ease, background var(--transition-speed) ease;
+}
+
+#tipsContainer .tip-card:hover {
+    transform: translateY(-3px);
+    background: var(--color-accent);
     color: #fff;
-    border-radius: 5px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
 }
 
-.bs-tooltip-top .tooltip-arrow::before {
-    border-top-color: var(--color-accent);
+#tipsContainer .tip-card h5 {
+    color: var(--vibrant-yellow);
 }
 
-/* Animations */
+#tipsContainer .tip-card p {
+    color: inherit;
+}
+
+/* **Animations** */
 @keyframes fadeInDown {
     from {
         opacity: 0;
@@ -301,7 +317,7 @@ footer p {
     }
 }
 
-/* Responsive Design */
+/* **Responsive Design** */
 @media(max-width: 992px) {
     .header-section {
         padding: 50px 15px 70px;
@@ -321,7 +337,7 @@ footer p {
 }
 
 @media(max-width: 600px) {
-    .add-debt-btn, .calculate-button {
+    .add-debt-btn, .calculate-button, #exportPdfBtn, #showDashboardBtn, #closeDashboardBtn {
         width: 100%;
         margin-bottom: 15px;
     }
@@ -357,11 +373,44 @@ footer p {
     .tooltip-inner {
         font-size: 0.8rem;
     }
+
+    /* Stack elements on small screens */
+    .result-box .row {
+        flex-direction: column;
+    }
+
+    .result-box .col-lg-6 {
+        width: 100%;
+    }
+
+    /* Tips Cards Full Width */
+    #tipsContainer .tip-card {
+        width: 100%;
+    }
 }
 
-/* Tooltip Icon Style */
+/* **Tooltip Icon Style** */
 .tooltip-icon {
     cursor: pointer;
     margin-left: 5px;
     color: var(--color-accent);
+    font-size: 1rem;
+}
+
+/* **Financial Goals Section Styles** */
+.financial-goals-section h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.goal-item .card {
+    border: none;
+}
+
+.goal-item .card-title {
+    color: var(--color-accent);
+}
+
+.goal-item .card-text {
+    color: var(--color-secondary);
 }

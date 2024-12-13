@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto&display=swap" rel="stylesheet">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- Chart.js -->
+    <!-- Chart.js (can be removed if not used elsewhere) -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- External CSS -->
     <link rel="stylesheet" href="styles.css">
@@ -59,7 +59,7 @@
                 <li><strong>Enter Your Financial Details:</strong> Input your monthly income, expenses, SIP contributions, and any extra payments you can make towards your debts.</li>
                 <li><strong>Add Your Debts:</strong> Click on "+ Add Another Debt" to input each of your debts, specifying the type, interest rate, balance, and minimum payment.</li>
                 <li><strong>Select a Repayment Method:</strong> Choose from Snowball, Avalanche, Pro-Rata, or Equal Distribution to determine how your payments are allocated.</li>
-                <li><strong>View Your Plan:</strong> Your repayment schedule, total interest paid, and a dynamic chart will update in real-time as you adjust your inputs.</li>
+                <li><strong>View Your Plan:</strong> Your repayment schedule, total interest paid, and dynamic charts will update in real-time as you adjust your inputs.</li>
                 <li><strong>Track Achievements:</strong> Unlock badges as you add debts, clear debts, and reach financial milestones!</li>
             </ol>
             <p>Feel free to explore and adjust your inputs to see how different strategies can help you achieve financial peace.</p>
@@ -92,12 +92,18 @@
             <h3>Monthly Income & Expenses</h3>
             <div class="row g-4 align-items-center">
                 <div class="col-md-6">
-                    <label for="monthlyIncome" class="form-label">Monthly Income (₹)</label>
+                    <label for="monthlyIncome" class="form-label">
+                        Monthly Income (₹)
+                        <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter your total monthly income before any deductions.">ℹ️</span>
+                    </label>
                     <input type="number" class="form-control" id="monthlyIncome" placeholder="e.g. 50000" aria-label="Monthly Income">
                     <small class="form-text text-muted">Enter your total monthly income.</small>
                 </div>
                 <div class="col-md-6">
-                    <label for="monthlyExpenses" class="form-label">Monthly Expenses (₹)</label>
+                    <label for="monthlyExpenses" class="form-label">
+                        Monthly Expenses (₹)
+                        <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter your total monthly expenses.">ℹ️</span>
+                    </label>
                     <input type="number" class="form-control" id="monthlyExpenses" placeholder="e.g. 30000" aria-label="Monthly Expenses">
                     <small class="form-text text-muted">Enter your total monthly expenses.</small>
                 </div>
@@ -107,7 +113,10 @@
             <h3 class="mt-4">SIP Contribution (Optional)</h3>
             <div class="row g-4 align-items-center">
                 <div class="col-md-6">
-                    <label for="monthlySIP" class="form-label">Monthly SIP (₹)</label>
+                    <label for="monthlySIP" class="form-label">
+                        Monthly SIP (₹)
+                        <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter your monthly SIP contribution.">ℹ️</span>
+                    </label>
                     <input type="number" class="form-control" id="monthlySIP" placeholder="e.g. 5000" aria-label="Monthly SIP Contribution">
                     <small class="form-text text-muted">Enter your monthly SIP contribution.</small>
                 </div>
@@ -123,7 +132,10 @@
             <h3 class="mt-4">Extra Monthly Payment (Optional)</h3>
             <div class="row g-4 align-items-center">
                 <div class="col-md-6">
-                    <label for="extraPayment" class="form-label">Extra Monthly Payment (₹)</label>
+                    <label for="extraPayment" class="form-label">
+                        Extra Monthly Payment (₹)
+                        <span class="tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter any extra amount you can pay monthly towards your debts.">ℹ️</span>
+                    </label>
                     <input type="number" class="form-control" id="extraPayment" placeholder="e.g. 2000" aria-label="Extra Monthly Payment">
                     <small class="form-text text-muted">Enter any extra amount you can pay monthly towards your debts.</small>
                 </div>
@@ -160,18 +172,27 @@
 
             <!-- Results Section -->
             <div class="result-box" id="resultBox">
+                <div class="row">
+                    <!-- Summary and Total Debt Section -->
+                    <div class="col-lg-6 mb-4">
+                        <h3>Summary</h3>
+                        <div class="result-summary" id="resultSummary"></div>
+                        <h4 class="mt-3">Total Debt</h4>
+                        <p id="totalDebt">₹0</p>
+                    </div>
+                    <!-- Remove Charts Section -->
+                    <!-- You can add other relevant information here if needed -->
+                </div>
+                <hr>
                 <ul class="nav nav-tabs border-0" id="resultTabs" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" 
-                                type="button" role="tab" aria-controls="summary" aria-selected="true">Summary</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#schedule" 
+                        <button class="nav-link active" id="schedule-tab" data-bs-toggle="tab" data-bs-target="#schedule" 
                                 type="button" role="tab" aria-controls="schedule" aria-selected="false">Schedule</button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="chart-tab" data-bs-toggle="tab" data-bs-target="#chart" 
-                                type="button" role="tab" aria-controls="chart" aria-selected="false">Chart</button>
+                        <!-- Removed Chart Tab -->
+                        <!-- <button class="nav-link" id="chart-tab" data-bs-toggle="tab" data-bs-target="#chart" 
+                                type="button" role="tab" aria-controls="chart" aria-selected="false">Chart</button> -->
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link" id="breakdown-tab" data-bs-toggle="tab" data-bs-target="#breakdown" 
@@ -179,17 +200,15 @@
                     </li>
                 </ul>
                 <div class="tab-content p-4" id="resultTabContent">
-                    <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
-                        <div class="result-summary" id="resultSummary"></div>
-                    </div>
-                    <div class="tab-pane fade" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
+                    <div class="tab-pane fade show active" id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                         <div class="table-responsive" id="scheduleTableContainer"></div>
                     </div>
-                    <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
+                    <!-- Removed Chart Tab Content -->
+                    <!-- <div class="tab-pane fade" id="chart" role="tabpanel" aria-labelledby="chart-tab">
                         <div class="chart-container">
                             <canvas id="repaymentChart"></canvas>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="tab-pane fade" id="breakdown" role="tabpanel" aria-labelledby="breakdown-tab">
                         <p class="description">
                             Month 0 shows your start. Each following month details your payments per debt. Over time, watch your debts fade away with consistent effort, like adding daily drops of water to a seedling until it blooms.
@@ -197,6 +216,14 @@
                         <div class="table-responsive" id="paymentBreakdownContainer"></div>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <!-- Tips and Motivation Section -->
+        <div class="card mb-4">
+            <h2>Tips, Tricks, and Motivation</h2>
+            <div id="tipsContainer" class="row g-3">
+                <!-- Dynamic Tips will be inserted here -->
             </div>
         </div>
 
@@ -214,6 +241,49 @@
             <!-- Achievement badges will be dynamically added here -->
         </div>
     </section>
+
+    <!-- Financial Goals Section -->
+    <section class="financial-goals-section container mb-5">
+        <h2>Financial Goals</h2>
+        <form id="goalsForm" class="mb-4">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" id="goalDescription" class="form-control" placeholder="Goal Description" required aria-label="Goal Description">
+                </div>
+                <div class="col-md-4">
+                    <input type="number" id="goalAmount" class="form-control" placeholder="Amount (₹)" required aria-label="Goal Amount">
+                </div>
+                <div class="col-md-4">
+                    <input type="date" id="goalDeadline" class="form-control" required aria-label="Goal Deadline">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-3" aria-label="Add Financial Goal">Add Goal</button>
+        </form>
+        <div id="goalsList" class="row">
+            <!-- Financial Goals will be dynamically added here -->
+        </div>
+    </section>
+
+    <!-- Debt Summary Dashboard Modal -->
+    <div class="modal fade" id="debtSummaryDashboard" tabindex="-1" aria-labelledby="debtSummaryLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="debtSummaryLabel">Debt Summary Dashboard</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Total Debt:</strong> <span id="dashboardTotalDebt">₹0</span></p>
+                    <p><strong>Total Interest Paid:</strong> <span id="dashboardTotalInterest">₹0</span></p>
+                    <p><strong>Debt-Free Time:</strong> <span id="dashboardDebtFreeTime">0 month(s)</span></p>
+                    <p><strong>Number of Debts:</strong> <span id="dashboardNumberOfDebts">0</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
